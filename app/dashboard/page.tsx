@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Plus, Store, Wifi, ArrowUpRight, Crown, AlertTriangle } from "lucide-react";
 import AdSenseBanner from "@/components/ads/AdSenseBanner";
+import UpgradeProButton from "@/components/dashboard/UpgradeProButton";
 
 export const dynamic = "force-dynamic";
 
@@ -50,12 +51,7 @@ export default async function DashboardPage() {
               </p>
             </div>
           </div>
-          <button 
-            type="button"
-            className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl transition shadow-sm flex-shrink-0"
-          >
-            Actualizar a Pro ($9.99/mes)
-          </button>
+          <UpgradeProButton className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl transition shadow-sm flex-shrink-0" />
         </div>
       )}
 

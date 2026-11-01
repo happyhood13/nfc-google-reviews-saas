@@ -188,7 +188,30 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- 6. Configuración de Supabase Storage (Bucket 'logos')
+-- 6. Registro de pagos para trazabilidad y protección contra webhooks duplicados
+CREATE TABLE IF NOT EXISTS public.payment_orders (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    provider TEXT NOT NULL DEFAULT 'mercadopago',
+    provider_payment_id TEXT NOT NULL,
+    preference_id TEXT,
+    user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+    status TEXT NOT NULL DEFAULT 'pending',
+    amount NUMERIC(10, 2),
+    currency TEXT,
+    raw_reference TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
+    UNIQUE (provider, provider_payment_id)
+);
+
+ALTER TABLE public.payment_orders ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Usuarios ven sus propios pagos" ON public.payment_orders;
+CREATE POLICY "Usuarios ven sus propios pagos"
+    ON public.payment_orders FOR SELECT
+    USING (auth.uid() = user_id);
+
+-- 7. Configuración de Supabase Storage (Bucket 'logos')
 INSERT INTO storage.buckets (id, name, public) 
 VALUES ('logos', 'logos', true)
 ON CONFLICT (id) DO NOTHING;

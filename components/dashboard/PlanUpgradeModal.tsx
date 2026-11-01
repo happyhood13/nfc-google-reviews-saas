@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, Sparkles, X } from "lucide-react";
+import UpgradeProButton from "./UpgradeProButton";
 
 interface PlanUpgradeModalProps {
   isOpen: boolean;
@@ -64,14 +65,9 @@ export default function PlanUpgradeModal({ isOpen, onClose }: PlanUpgradeModalPr
           </ul>
         </div>
 
-        <button
-          onClick={() => {
-            alert("Redirigiendo a pasarela de pago segura (Stripe / Mercado Pago)...");
-          }}
-          className="w-full py-3 px-4 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-600/25 active:scale-95 transition"
-        >
+        <UpgradeProButton className="w-full py-3 px-4 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-600/25 active:scale-95 transition">
           Mejorar a Plan Pro Ahora
-        </button>
+        </UpgradeProButton>
 
         <p className="text-center text-[11px] text-slate-400 mt-3">
           Cancela en cualquier momento con un solo clic. Garantía de reembolso de 14 días.
