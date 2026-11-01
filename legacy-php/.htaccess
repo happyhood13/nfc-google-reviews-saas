@@ -1,0 +1,27 @@
+# ==============================================================================
+# SaaS NFC & QR Reviews - Configuración Apache & Reescritura de Rutas
+# ==============================================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /qr/
+
+    # 1. Redirección amigable para Taps NFC y escaneos de QR: /r/{slug} -> index.php?action=redirect&slug={slug}
+    RewriteRule ^r/([a-zA-Z0-9_\-]+)/?$ index.php?action=redirect&slug=$1 [L,QSA]
+
+    # 2. No reescribir si el archivo o carpeta física existen
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # 3. Enrutar el resto de solicitudes no estáticas a index.php
+    RewriteRule ^(.*)$ index.php [L,QSA]
+</IfModule>
+
+# Protección de archivos de configuración y base de datos
+<FilesMatch "(?i)\.(sql|env|log|md|json|lock|git)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Ocultar firmas de versión del servidor
+ServerSignature Off

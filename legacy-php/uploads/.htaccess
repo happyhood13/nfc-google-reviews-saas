@@ -1,0 +1,30 @@
+# ==============================================================================
+# SaaS NFC & QR Reviews - Protección de Directorio de Subidas (OWASP)
+# ==============================================================================
+# Previene la ejecución arbitraria de scripts maliciosos subidos por usuarios
+
+# 1. Deshabilitar ejecución de PHP y scripts en este directorio
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+
+# 2. Bloquear cualquier archivo ejecutable o de script
+<FilesMatch "(?i)\.(php|phtml|php3|php4|php5|php7|php8|phps|phar|inc|cgi|pl|exe|sh|py|rb|bat|cmd|htaccess|env)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# 3. Denegar navegación de directorio y CGI
+Options -Indexes -ExecCGI
+
+# 4. Asegurar entrega correcta de imágenes
+AddType image/jpeg .jpg .jpeg
+AddType image/png .png
+AddType image/webp .webp
+AddType image/svg+xml .svg
