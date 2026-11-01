@@ -28,7 +28,8 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} ${outfit.variable} h-full antialiased`}>
       <head>
-        <AdSenseScript />
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1252754055421898" crossorigin="anonymous"></script>
+      
       </head>
       <body className="flex flex-col min-h-full font-sans bg-slate-50 text-slate-800">
         <Navbar />
