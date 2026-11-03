@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Wifi, Sparkles, Star, ArrowRight, ShieldCheck, Printer, BarChart3, Check } from "lucide-react";
+import NfcGuide from "@/components/landing/NfcGuide";
+import FaqSection from "@/components/landing/FaqSection";
 
 export default function HomePage() {
   return (
@@ -220,6 +222,9 @@ export default function HomePage() {
 
         </div>
       </section>
+
+      <NfcGuide />
+      <FaqSection />
 
     </div>
   );
